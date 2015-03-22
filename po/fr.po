@@ -1,0 +1,46 @@
+# French translations for buildroot-helpers package.
+# Copyright (C) 2015 THE buildroot-helpers'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the buildroot-helpers package.
+# Eric Le Bihan <eric.le.bihan.dev@free.fr>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buildroot-helpers\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-22 23:48+0100\n"
+"PO-Revision-Date: 2015-03-22 23:30+0100\n"
+"Last-Translator: Eric Le Bihan <eric.le.bihan.dev@free.fr>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: br2helpers/cli.py:65
+msgid "list available presets"
+msgstr "liste les modèles disponibles"
+
+#: br2helpers/cli.py:69
+msgid "edit a local.mk preset"
+msgstr "éditer un modèle de local.mk"
+
+#: br2helpers/cli.py:71 br2helpers/cli.py:77
+msgid "name of the local.mk preset"
+msgstr "nom du modèle de local.mk"
+
+#: br2helpers/cli.py:75
+msgid "install a local.mk preset"
+msgstr "installer un modèle de local.mk"
+
+#: br2helpers/cli.py:79
+msgid "destination directory"
+msgstr "répertoire de destination"
+
+#: br2helpers/cli.py:86
+msgid "Missing command"
+msgstr "Commande absente"
+
+#: br2helpers/mk.py:67
+msgid "no such preset"
+msgstr "aucun modèle ne correspond"
