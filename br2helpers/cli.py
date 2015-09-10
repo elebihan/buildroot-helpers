@@ -51,6 +51,11 @@ def parse_cmd_install(args):
     mgr.install(args.preset, args.destination)
 
 
+def parse_cmd_clean(args):
+    mgr = LocalMkManager()
+    mgr.clean(args.directory)
+
+
 def manage_local_mk():
 
     setup_i18n()
@@ -78,6 +83,12 @@ def manage_local_mk():
     p.add_argument('destination',
                    help=_('destination directory'))
     p.set_defaults(func=parse_cmd_install)
+
+    p = subparsers.add_parser('clean',
+                              help=_('remove local.mk file from directory'))
+    p.add_argument('directory',
+                   help=_('directory containing local.mk'))
+    p.set_defaults(func=parse_cmd_clean)
 
     args = parser.parse_args()
 
