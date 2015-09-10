@@ -32,6 +32,7 @@ import os
 from subprocess import check_call
 from gettext import gettext as _
 
+
 class LocalMkManager:
     def __init__(self):
         self._registry = os.path.expanduser('~/.config/buildroot.org/Makefiles')
@@ -65,6 +66,11 @@ class LocalMkManager:
             os.symlink(self._expand(preset), target)
         else:
             raise RuntimeError(_('no such preset'))
+
+    def clean(self, path):
+        target = os.path.join(path, 'local.mk')
+        if os.path.exists(target):
+            os.unlink(target)
 
     def edit(self, preset):
         if preset not in self.presets:
