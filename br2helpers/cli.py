@@ -56,6 +56,11 @@ def parse_cmd_clean(args):
     mgr.clean(args.directory)
 
 
+def parse_cmd_scaffold(args):
+    mgr = LocalMkManager()
+    mgr.scaffold(args.preset, args.pkgdir, args.srcdir, args.packages)
+
+
 def manage_local_mk():
 
     setup_i18n()
@@ -89,6 +94,21 @@ def manage_local_mk():
     p.add_argument('directory',
                    help=_('directory containing local.mk'))
     p.set_defaults(func=parse_cmd_clean)
+
+    p = subparsers.add_parser('scaffold',
+                              help=_('create a preset for some packages'))
+    p.add_argument('preset',
+                   help=_('name of the local.mk preset'))
+    p.add_argument('pkgdir',
+                   help=_('location of packages'))
+    p.add_argument('srcdir',
+                   help=_('location of overrided packages'))
+    p.add_argument('packages',
+                   nargs=argparse.REMAINDER,
+                   default=[],
+                   metavar=_('package'),
+                   help=_('packages to override'))
+    p.set_defaults(func=parse_cmd_scaffold)
 
     args = parser.parse_args()
 
