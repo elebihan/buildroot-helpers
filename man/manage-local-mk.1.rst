@@ -26,6 +26,7 @@ set of commands:
 - list: list the available presets.
 - install: install a ``local.mk`` from a preset into a Buildroot build
   directory.
+- scaffold: create a ``local.mk`` preset for a given list of packages.
 
 OPTIONS
 =======
@@ -55,6 +56,14 @@ install <preset> <destination>
 Install an existing ``local.mk`` *preset* into the *destination*
 directory.  As the ``local.mk`` file is just a symbolic link, simply
 delete it to uninstall.
+
+scaffold <preset> <pkgdir> <srcdir> [<package>, ...]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create a ``local.mk`` *preset* for a given list of packages. The packages are
+declared in *pkgdir*. The root directory containing the source code of the
+packages to override is *srcdir*. If no package is given, all packages found in
+*pkgdir* are selected.
 
 EXAMPLES
 ========
