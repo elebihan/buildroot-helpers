@@ -29,6 +29,7 @@
 """
 
 import os
+from ..pkg.utils import collect
 from subprocess import check_call
 from gettext import gettext as _
 
@@ -77,5 +78,20 @@ class LocalMkManager:
             self._create(preset)
         check_call([os.environ.get('EDITOR', 'vi'), self._expand(preset)])
 
+    def scaffold(self, preset, pkgdir, srcdir, selection=[]):
+        os.makedirs(self._registry, exist_ok=True)
+        packages = collect(pkgdir)
+        if selection:
+            names = [pkg.name for pkg in packages]
+            for entry in selection:
+                if entry not in names:
+                    raise RuntimeError(_("can not find '{}'".format(entry)))
+            packages = [pkg for pkg in packages if pkg.name in selection]
+        with open(self._expand(preset), 'w') as f:
+            for pkg in packages:
+                name = pkg.name.upper().replace('-', '_')
+                path = os.path.join(srcdir, pkg.name)
+                line = "{}_OVERRIDE_SRCDIR = {}\n".format(name, path)
+                f.write(line)
 
 # vim: ts=4 sw=4 sts=4 et ai
