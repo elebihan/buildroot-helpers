@@ -31,7 +31,7 @@
 import argparse
 from gettext import gettext as _
 from br2helpers import __version__
-from .mk import LocalMkManager
+from .mk.helpers import LocalMkManager
 from .utils import setup_i18n
 
 

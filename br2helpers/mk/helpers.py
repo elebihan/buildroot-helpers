@@ -19,8 +19,8 @@
 #
 
 """
-   br2helpers.mk
-   `````````````
+   br2helpers.mk.helpers
+   ``````````````̀`̀̀``̀`̀̀```
 
    Makefile helpers
 
