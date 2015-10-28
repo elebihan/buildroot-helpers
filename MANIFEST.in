@@ -1,6 +1,6 @@
 include AUTHORS
-include COPYING
 include HACKING
+include LICENSE
 include CHANGELOG.rst
 include README.rst
 include disthelpers.py
