@@ -26,6 +26,7 @@ set of commands:
 - list: list the available presets.
 - install: install a ``local.mk`` from a preset into a Buildroot build
   directory.
+- clean: remove ``local.mk`` from a directory.
 - scaffold: create a ``local.mk`` preset for a given list of packages.
 
 OPTIONS
@@ -54,8 +55,13 @@ install <preset> <destination>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install an existing ``local.mk`` *preset* into the *destination*
-directory.  As the ``local.mk`` file is just a symbolic link, simply
+directory. As the ``local.mk`` file is just a symbolic link, simply
 delete it to uninstall.
+
+clean <directory>
+~~~~~~~~~~~~~~~~~
+
+Remove ``local.mk`` from *directory*.
 
 scaffold <preset> <pkgdir> <srcdir> [<package>, ...]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
