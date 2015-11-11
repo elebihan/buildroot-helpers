@@ -30,8 +30,12 @@
 
 
 import os
+from ..common import download_file
 from ..mk.utils import extract_variables
+from ..vcs.base import RepoObjectType
+from ..vcs.utils import checkout_vcs, is_vcs_url
 from collections import namedtuple
+from gettext import gettext as _
 
 PackageInfo = namedtuple('PackageInfo', ['name', 'site', 'source', 'version'])
 
@@ -70,5 +74,19 @@ def collect(directory):
                 packages.append(create_package_info(path))
     return packages
 
+
+def check_package_use_vcs(pkginfo):
+    return is_vcs_url(pkginfo.site)
+
+
+def download_package(pkginfo, path):
+    if not pkginfo.site or not pkginfo.source:
+        raise RuntimeError(_('Invalid URL for package'))
+    url = pkginfo.site + '/' + pkginfo.source
+    download_file(url, path)
+
+
+def checkout_package(pkginfo, path):
+    checkout_vcs(pkginfo.site, path, RepoObjectType.tag, pkginfo.version)
 
 # vim: ts=4 sw=4 sts=4 et ai
