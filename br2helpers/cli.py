@@ -28,10 +28,12 @@
    :license: GPLv2+
 """
 
+import os
 import argparse
 from gettext import gettext as _
 from br2helpers import __version__
 from .mk.helpers import LocalMkManager
+from .pkg.helpers import PackageFetcher
 from .utils import setup_i18n
 
 
@@ -117,5 +119,38 @@ def manage_local_mk():
         parser.error(_('Missing command'))
     else:
         args.func(args)
+
+
+def prepare_override():
+    setup_i18n()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--version',
+                        action='version',
+                        version=__version__)
+    parser.add_argument('-O', '--output',
+                        metavar=_('DIRECTORY'),
+                        default=os.path.join(os.getcwd(), 'override'),
+                        help=_('set output directory'))
+    parser.add_argument('-c', '--cache',
+                        metavar=_('DIRECTORY'),
+                        help=_('set location of archives'))
+    parser.add_argument('-s', '--vcs',
+                        action='store_true',
+                        dest='use_vcs',
+                        default=False,
+                        help=_('force use of source code from VCS'))
+    parser.add_argument('pkgdir',
+                        help=_('location of packages'))
+    parser.add_argument('package',
+                        metavar=_('package'),
+                        help=_('package to override'))
+
+    args = parser.parse_args()
+
+    fetcher = PackageFetcher(args.pkgdir, args.cache)
+    fetcher.use_vcs = args.use_vcs
+    fetcher.fetch(args.package, args.output)
+
 
 # vim: ts=4 sw=4 sts=4 et ai

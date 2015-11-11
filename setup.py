@@ -48,6 +48,7 @@ setup(name='buildroot-helpers',
       entry_points={
           'console_scripts': [
               'manage-local-mk = br2helpers.cli:manage_local_mk',
+              'prepare-override = br2helpers.cli:prepare_override',
           ],
       },
       author='Eric Le Bihan',
