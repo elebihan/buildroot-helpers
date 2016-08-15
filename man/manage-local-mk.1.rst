@@ -49,6 +49,15 @@ Edit an existing ``local.mk`` *preset* or create one if it does not
 exists. The text editor specified in the *$EDITOR* environment
 variable will be used.
 
+new [OPTIONS] <preset> [<package>, ...]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create a new ``local.mk`` preset with a optional list of predefined packages.
+
+Available options:
+
+-s DIR, --source DIR    path to packages base directory
+
 install <preset> <destination>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -70,3 +79,8 @@ To install it into the Buildroot build directory, execute::
 To uninstall::
 
   $ rm /path/to/buildroot/output/local.mk
+
+To create a new preset named "quux" with packages foo and bar, which sources are
+in ``/some/path``, execute::
+
+  $ manage-local-mk create --source /some/path quux foo bar
