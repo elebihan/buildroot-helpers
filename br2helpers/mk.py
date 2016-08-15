@@ -32,6 +32,7 @@ import os
 from subprocess import check_call
 from gettext import gettext as _
 
+
 class LocalMkManager:
     def __init__(self):
         self._registry = os.path.expanduser('~/.config/buildroot.org/Makefiles')
@@ -49,7 +50,7 @@ class LocalMkManager:
             pass
         return presets
 
-    def _create(self, preset):
+    def _create_empty(self, preset):
         os.makedirs(self._registry, exist_ok=True)
         with open(self._expand(preset), 'w') as f:
             f.write('# Buildroot local.mk\n')
@@ -68,8 +69,26 @@ class LocalMkManager:
 
     def edit(self, preset):
         if preset not in self.presets:
-            self._create(preset)
+            self._create_empty(preset)
         check_call([os.environ.get('EDITOR', 'vi'), self._expand(preset)])
 
+    def create(self, preset, src_dir, packages):
+        if preset in self.presets:
+            raise RuntimeError(_('preset already exists'))
+        self._create_empty(preset)
+        for package in packages:
+            self._add_package(preset, src_dir, package)
+
+    def _add_package(self, preset, src_dir, package):
+        template = "{0}_OVERRIDE_SRCDIR = {1}\n"
+        pkg_path = os.path.join(src_dir, package)
+        pkg_name = package.upper().replace('-', '_')
+        if not os.path.isdir(pkg_path):
+            raise RuntimeError(_('invalid package source directory'))
+        if preset in self.presets:
+            with open(self._expand(preset), 'a') as f:
+                f.write(template.format(pkg_name, pkg_path))
+        else:
+            raise RuntimeError(_('no such preset'))
 
 # vim: ts=4 sw=4 sts=4 et ai
