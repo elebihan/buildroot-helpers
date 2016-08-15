@@ -28,6 +28,7 @@
    :license: GPLv2+
 """
 
+import os
 import argparse
 from gettext import gettext as _
 from br2helpers import __version__
@@ -49,6 +50,11 @@ def parse_cmd_edit(args):
 def parse_cmd_install(args):
     mgr = LocalMkManager()
     mgr.install(args.preset, args.destination)
+
+
+def parse_cmd_new(args):
+    mgr = LocalMkManager()
+    mgr.create(args.preset, args.src_dir, args.packages)
 
 
 def manage_local_mk():
@@ -78,6 +84,21 @@ def manage_local_mk():
     p.add_argument('destination',
                    help=_('destination directory'))
     p.set_defaults(func=parse_cmd_install)
+
+    p = subparsers.add_parser('new',
+                              help=_('create a new local.mk preset'))
+    p.add_argument('-s', '--source',
+                   dest='src_dir',
+                   metavar=_('DIRECTORY'),
+                   default=os.getcwd(),
+                   help=_('path to packages base directory'))
+    p.add_argument('preset',
+                   help=_('name of the local.mk preset'))
+    p.add_argument('packages',
+                   nargs='+',
+                   metavar=_('PACKAGE'),
+                   help=_('package to override'))
+    p.set_defaults(func=parse_cmd_new)
 
     args = parser.parse_args()
 
