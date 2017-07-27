@@ -61,7 +61,7 @@ def parse_cmd_scaffold(args):
     mgr.scaffold(args.preset, args.pkgdir, args.srcdir, args.packages)
 
 
-def manage_local_mk():
+def br2_local_mk():
 
     setup_i18n()
 

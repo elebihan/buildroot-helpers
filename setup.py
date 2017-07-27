@@ -47,7 +47,7 @@ setup(name='buildroot-helpers',
       include_package_data=True,
       entry_points={
           'console_scripts': [
-              'manage-local-mk = br2helpers.cli:manage_local_mk',
+              'br2-local-mk = br2helpers.cli:br2_local_mk',
           ],
       },
       author='Eric Le Bihan',

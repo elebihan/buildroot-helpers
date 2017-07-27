@@ -1,24 +1,24 @@
 ===============
-manage-local-mk
+br2-local-mk
 ===============
 
----------------
-Manage local.mk
----------------
+-------------------------
+Manage Buildroot local.mk
+-------------------------
 
 :Author: Eric Le Bihan <eric.le.bihan.dev@free.fr>
-:Copyright: 2015 Eric Le Bihan
+:Copyright: 2015-2017 Eric Le Bihan
 :Manual section: 1
 
 SYNOPSIS
 ========
 
-manage-local-mk [OPTIONS] <command> [<argument>, ...]
+br2-local-mk [OPTIONS] <command> [<argument>, ...]
 
 DESCRIPTION
 ===========
 
-`manage-local-mk(1)` allows the Buildroot user to easily manage a
+`br2-local-mk(1)` allows the Buildroot user to easily manage a
 local Makefile for compiling custom versions of packages, through a
 set of commands:
 
@@ -76,11 +76,11 @@ EXAMPLES
 
 To create a new preset named "foobar", execute::
 
-  $ manage-local-mk edit foobar
+  $ br2-local-mk edit foobar
 
 To install it into the Buildroot build directory, execute::
 
-  $ manage-local-mk install foobar /path/to/buildroot/output
+  $ br2-local-mk install foobar /path/to/buildroot/output
 
 To uninstall::
 
