@@ -1,0 +1,77 @@
+#compdef br2-local-mk
+
+_br2_local_mk_list_all_presets()
+{
+    _br2_local_mk_all_presets=( $(br2-local-mk list | { while read a; do echo -E - " $a"; done; }) )
+}
+
+(( $+functions[_br2_local_mk_edit] )) || _br2_local_mk_edit()
+{
+    _arguments -w -S -s \
+        '1: :->preset'
+
+    if [[ "$state" == preset ]]; then
+        _br2_local_mk_list_all_presets
+        compadd -a _br2_local_mk_all_presets
+    fi
+}
+
+(( $+functions[_br2_local_mk_install] )) || _br2_local_mk_install()
+{
+    _arguments -w -S -s \
+        '1: :->preset' \
+        '2: :_dirs'
+
+    if [[ "$state" == preset ]]; then
+        _br2_local_mk_list_all_presets
+        compadd -a _br2_local_mk_all_presets
+    fi
+}
+
+(( $+functions[_br2_local_mk_clean] )) || _br2_local_mk_clean()
+{
+    _arguments -w -S -s \
+        '1: :_dirs'
+}
+
+(( $+functions[_br2_local_mk_scaffold] )) || _br2_local_mk_scaffold()
+{
+    _arguments -w -S -s \
+        '1:preset:' \
+        '2:pkgdir:_dirs' \
+        '3:srcdir:_dirs'
+}
+
+(( $+functions[_br2_local_mk_command] )) || _br2_local_mk_command()
+{
+    local -a _br2_local_mk_cmds
+    _br2_local_mk_cmds=(
+        "list:list available presets"
+        "edit:edit a local.mk preset"
+        "install:install a local.mk preset"
+        "clean:remove local.mk from directory"
+        "scaffold:create a preset for some packages"
+    )
+    if (( CURRENT == 1 )); then
+        _describe -t commands 'br2-local-mk command' _br2_local_mk_cmds || compadd "$@"
+    else
+        local curcontext="$curcontext"
+
+        cmd="${${_br2_local_mk_cmds[(r)$words[1]:*]%%:*}}"
+
+    if (( $#cmd )); then
+            curcontext="${curcontext%:*:*}:br2-local-mk-${cmd}:"
+
+            _call_function ret _br2_local_mk_$cmd || _message 'no more arguments'
+        else
+            _message "unknown br2-local-mk command: $words[1]"
+        fi
+        return ret
+    fi
+}
+
+_arguments -w -S -s \
+    '(-v --version)'{-v,--version}'' \
+    '*::br2-local-mk command:_br2_local_mk_command'
+
+# vim: ts=4 sts=4 sw=4 et ai
