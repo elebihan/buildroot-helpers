@@ -2,7 +2,7 @@
 #
 # This file is part of buildroot-helpers
 #
-# Copyright (C) 2015 Eric Le Bihan <eric.le.bihan.dev@free.fr>
+# Copyright (C) 2015-2017 Eric Le Bihan <eric.le.bihan.dev@free.fr>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,11 @@
 
    Buildroot helpers
 
-   :copyright: (C) 2015 Eric Le Bihan <eric.le.bihan.dev@free.fr>
+   :copyright: (C) 2015-2017 Eric Le Bihan <eric.le.bihan.dev@free.fr>
    :license: GPLv2+
 """
 
 __docformat__ = 'restructuredtext en'
-__version__ = '0.3.1'
+__version__ = '0.4.0'
 
 # vim: ts=4 sw=4 sts=4 et ai
