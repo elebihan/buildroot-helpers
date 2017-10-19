@@ -1,24 +1,24 @@
 ===============
-manage-local-mk
+br2-local-mk
 ===============
 
----------------
-Manage local.mk
----------------
+-------------------------
+Manage Buildroot local.mk
+-------------------------
 
 :Author: Eric Le Bihan <eric.le.bihan.dev@free.fr>
-:Copyright: 2015 Eric Le Bihan
+:Copyright: 2015-2017 Eric Le Bihan
 :Manual section: 1
 
 SYNOPSIS
 ========
 
-manage-local-mk [OPTIONS] <command> [<argument>, ...]
+br2-local-mk [OPTIONS] <command> [<argument>, ...]
 
 DESCRIPTION
 ===========
 
-`manage-local-mk(1)` allows the Buildroot user to easily manage a
+`br2-local-mk(1)` allows the Buildroot user to easily manage a
 local Makefile for compiling custom versions of packages, through a
 set of commands:
 
@@ -26,6 +26,8 @@ set of commands:
 - list: list the available presets.
 - install: install a ``local.mk`` from a preset into a Buildroot build
   directory.
+- clean: remove ``local.mk`` from a directory.
+- scaffold: create a ``local.mk`` preset for a given list of packages.
 
 OPTIONS
 =======
@@ -53,19 +55,32 @@ install <preset> <destination>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install an existing ``local.mk`` *preset* into the *destination*
-directory.  As the ``local.mk`` file is just a symbolic link, simply
+directory. As the ``local.mk`` file is just a symbolic link, simply
 delete it to uninstall.
+
+clean <directory>
+~~~~~~~~~~~~~~~~~
+
+Remove ``local.mk`` from *directory*.
+
+scaffold <preset> <pkgdir> <srcdir> [<package>, ...]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create a ``local.mk`` *preset* for a given list of packages. The packages are
+declared in *pkgdir*. The root directory containing the source code of the
+packages to override is *srcdir*. If no package is given, all packages found in
+*pkgdir* are selected.
 
 EXAMPLES
 ========
 
 To create a new preset named "foobar", execute::
 
-  $ manage-local-mk edit foobar
+  $ br2-local-mk edit foobar
 
 To install it into the Buildroot build directory, execute::
 
-  $ manage-local-mk install foobar /path/to/buildroot/output
+  $ br2-local-mk install foobar /path/to/buildroot/output
 
 To uninstall::
 

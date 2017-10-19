@@ -2,7 +2,7 @@
 #
 # This file is part of buildroot-helpers
 #
-# Copyright (C) 2015 Eric Le Bihan <eric.le.bihan.dev@free.fr>
+# Copyright (C) 2015-2017 Eric Le Bihan <eric.le.bihan.dev@free.fr>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,14 +24,14 @@
 
    Command line interpreter helpers
 
-   :copyright: (C) 2015 Eric Le Bihan <eric.le.bihan.dev@free.fr>
+   :copyright: (C) 2015-2017 Eric Le Bihan <eric.le.bihan.dev@free.fr>
    :license: GPLv2+
 """
 
 import argparse
 from gettext import gettext as _
 from br2helpers import __version__
-from .mk import LocalMkManager
+from .mk.helpers import LocalMkManager
 from .utils import setup_i18n
 
 
@@ -51,7 +51,17 @@ def parse_cmd_install(args):
     mgr.install(args.preset, args.destination)
 
 
-def manage_local_mk():
+def parse_cmd_clean(args):
+    mgr = LocalMkManager()
+    mgr.clean(args.directory)
+
+
+def parse_cmd_scaffold(args):
+    mgr = LocalMkManager()
+    mgr.scaffold(args.preset, args.pkgdir, args.srcdir, args.packages)
+
+
+def br2_local_mk():
 
     setup_i18n()
 
@@ -78,6 +88,27 @@ def manage_local_mk():
     p.add_argument('destination',
                    help=_('destination directory'))
     p.set_defaults(func=parse_cmd_install)
+
+    p = subparsers.add_parser('clean',
+                              help=_('remove local.mk file from directory'))
+    p.add_argument('directory',
+                   help=_('directory containing local.mk'))
+    p.set_defaults(func=parse_cmd_clean)
+
+    p = subparsers.add_parser('scaffold',
+                              help=_('create a preset for some packages'))
+    p.add_argument('preset',
+                   help=_('name of the local.mk preset'))
+    p.add_argument('pkgdir',
+                   help=_('location of packages'))
+    p.add_argument('srcdir',
+                   help=_('location of overrided packages'))
+    p.add_argument('packages',
+                   nargs=argparse.REMAINDER,
+                   default=[],
+                   metavar=_('package'),
+                   help=_('packages to override'))
+    p.set_defaults(func=parse_cmd_scaffold)
 
     args = parser.parse_args()
 

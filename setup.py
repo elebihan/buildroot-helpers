@@ -3,7 +3,7 @@
 #
 # This file is part of buildroot-helpers
 #
-# Copyright (C) 2015 Eric Le Bihan <eric.le.bihan.dev@free.fr>
+# Copyright (C) 2015-2017 Eric Le Bihan <eric.le.bihan.dev@free.fr>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 from setuptools import setup, find_packages
 from disthelpers import extract_messages, init_catalog, update_catalog
 from disthelpers import build, build_catalog, build_man
+from glob import glob
 import br2helpers
 
 setup(name='buildroot-helpers',
@@ -40,11 +41,13 @@ setup(name='buildroot-helpers',
           'Programming Language :: Python :: 3',
       ],
       packages=find_packages(),
-      data_files=[],
+      data_files=[
+          ('share/zsh/site-functions', glob('shell-completion/zsh/_*')),
+      ],
       include_package_data=True,
       entry_points={
           'console_scripts': [
-              'manage-local-mk = br2helpers.cli:manage_local_mk',
+              'br2-local-mk = br2helpers.cli:br2_local_mk',
           ],
       },
       author='Eric Le Bihan',
