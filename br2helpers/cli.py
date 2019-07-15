@@ -46,6 +46,11 @@ def parse_cmd_edit(args):
     mgr.edit(args.preset)
 
 
+def parse_cmd_import(args):
+    mgr = LocalMkManager()
+    mgr.imprt(args.preset, args.source)
+
+
 def parse_cmd_install(args):
     mgr = LocalMkManager()
     mgr.install(args.preset, args.destination)
@@ -80,6 +85,14 @@ def br2_local_mk():
     p.add_argument('preset',
                    help=_('name of the local.mk preset'))
     p.set_defaults(func=parse_cmd_edit)
+
+    p = subparsers.add_parser('import',
+                              help=_('import existing local.mk to preset'))
+    p.add_argument('preset',
+                   help=_('name of the local.mk preset'))
+    p.add_argument('source',
+                   help=_('source directory'))
+    p.set_defaults(func=parse_cmd_import)
 
     p = subparsers.add_parser('install',
                               help=_('install a local.mk preset'))

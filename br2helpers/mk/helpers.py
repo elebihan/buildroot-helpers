@@ -59,6 +59,17 @@ class LocalMkManager:
     def _expand(self, preset):
         return os.path.join(self._registry, preset + '.mk')
 
+    def imprt(self, preset, source):
+        if preset in self.presets:
+            raise RuntimeError(_('preset already exists'))
+        else:
+            if not os.path.isdir(source):
+                raise RuntimeError(_('source folder does not exist'))
+            target = os.path.join(source, 'local.mk')
+            os.makedirs(self._registry, exist_ok=True)
+            os.rename(target, self._expand(preset))
+            os.symlink(self._expand(preset), target)
+
     def install(self, preset, destination):
         if preset in self.presets:
             if not os.path.isdir(destination):

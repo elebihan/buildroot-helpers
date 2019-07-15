@@ -24,6 +24,8 @@ set of commands:
 
 - edit: edit or create a ``local.mk`` preset.
 - list: list the available presets.
+- import: import an existing ``local.mk`` from a Buildroot build directory into
+  preset.
 - install: install a ``local.mk`` from a preset into a Buildroot build
   directory.
 - clean: remove ``local.mk`` from a directory.
@@ -50,6 +52,11 @@ edit <preset>
 Edit an existing ``local.mk`` *preset* or create one if it does not
 exists. The text editor specified in the *$EDITOR* environment
 variable will be used.
+
+import <preset> <source>
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Install an existing ``local.mk`` from the *source* directory into *preset*.
 
 install <preset> <destination>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
