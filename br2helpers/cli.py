@@ -61,6 +61,11 @@ def parse_cmd_clean(args):
     mgr.clean(args.directory)
 
 
+def parse_cmd_remove(args):
+    mgr = LocalMkManager()
+    mgr.remove(args.preset)
+
+
 def parse_cmd_scaffold(args):
     mgr = LocalMkManager()
     mgr.scaffold(args.preset, args.pkgdir, args.srcdir, args.packages)
@@ -107,6 +112,12 @@ def br2_local_mk():
     p.add_argument('directory',
                    help=_('directory containing local.mk'))
     p.set_defaults(func=parse_cmd_clean)
+
+    p = subparsers.add_parser('remove',
+                              help=_('remove local.mk preset'))
+    p.add_argument('preset',
+                   help=_('name of the local.mk preset'))
+    p.set_defaults(func=parse_cmd_remove)
 
     p = subparsers.add_parser('scaffold',
                               help=_('create a preset for some packages'))

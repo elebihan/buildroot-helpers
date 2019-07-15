@@ -89,6 +89,11 @@ class LocalMkManager:
             self._create(preset)
         check_call([os.environ.get('EDITOR', 'vi'), self._expand(preset)])
 
+    def remove(self, preset):
+        if preset not in self.presets:
+            raise RuntimeError(_('no such preset'))
+        os.unlink(self._expand(preset))
+
     def scaffold(self, preset, pkgdir, srcdir, selection=[]):
         os.makedirs(self._registry, exist_ok=True)
         packages = collect(pkgdir)
