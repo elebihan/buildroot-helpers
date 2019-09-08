@@ -16,6 +16,13 @@ _br2_local_mk_list_all_presets()
     fi
 }
 
+(( $+functions[_br2_local_mk_import] )) || _br2_local_mk_import()
+{
+    _arguments -w -S -s \
+        '1:preset:' \
+        '2: :_dirs'
+}
+
 (( $+functions[_br2_local_mk_install] )) || _br2_local_mk_install()
 {
     _arguments -w -S -s \
@@ -59,6 +66,7 @@ _br2_local_mk_list_all_presets()
     _br2_local_mk_cmds=(
         "list:list available presets"
         "edit:edit a local.mk preset"
+        "import:import existing local.mk to preset"
         "install:install a local.mk preset"
         "clean:remove local.mk from directory"
         "remove:remove local.mk preset"
