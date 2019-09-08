@@ -42,6 +42,17 @@ _br2_local_mk_list_all_presets()
         '3:srcdir:_dirs'
 }
 
+(( $+functions[_br2_local_mk_remove] )) || _br2_local_mk_remove()
+{
+    _arguments -w -S -s \
+        '1: :->preset'
+
+    if [[ "$state" == preset ]]; then
+        _br2_local_mk_list_all_presets
+        compadd -a _br2_local_mk_all_presets
+    fi
+}
+
 (( $+functions[_br2_local_mk_command] )) || _br2_local_mk_command()
 {
     local -a _br2_local_mk_cmds
@@ -50,6 +61,7 @@ _br2_local_mk_list_all_presets()
         "edit:edit a local.mk preset"
         "install:install a local.mk preset"
         "clean:remove local.mk from directory"
+        "remove:remove local.mk preset"
         "scaffold:create a preset for some packages"
     )
     if (( CURRENT == 1 )); then
